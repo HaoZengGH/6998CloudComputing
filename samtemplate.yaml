@@ -1,0 +1,29 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: Lambda for AI Photo Search
+Resources:
+  SearchPhotosLambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: search-photos
+      Handler: search-photos.lambda_handler
+      Runtime: python3.9
+      CodeUri: ./search-photos-copy
+      Description: 'Lambda function for searching photos'
+      Role: 'arn:aws:lambda:us-east-1:059614236999:function:search-photos'
+      Environment:
+        Variables:
+          REGION: us-east-1
+  IndexPhotosLambda:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: index-photos
+      Handler: index-photos.lambda_handler
+      Runtime: python3.9
+      CodeUri: ./index-photos-copy
+      Description: 'Lambda function for indexing photos'
+      Role: 'arn:aws:lambda:us-east-1:059614236999:function:index-photos'
+      Environment:
+        Variables:
+          REGION: us-east-1
+    
