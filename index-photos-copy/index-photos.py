@@ -5,6 +5,9 @@ from requests_aws4auth import AWS4Auth
 from opensearchpy import OpenSearch, RequestsHttpConnection
 import requests
 
+import botocore.session
+
+
 def lambda_handler(event, context):
 
     s3 = boto3.client('s3')
@@ -54,22 +57,14 @@ def lambda_handler(event, context):
 
     print(item)
 
-    #region = 'us-east-1'
-    host = 'search-photoalbum-cn3cdbz3grdr76hntdhosnnqpy.us-east-1.es.amazonaws.com'
-    #index = 'photos'
-    #type = 'image'
-    #url = OpenSearch + '/' + index + '/' + type
 
-    #headers = {"Content-Type": "application/json"}
-
-    
-    
-  
+    host = 'search-photoalbum-nofg-j5q2nx2vexvvkx75fyqt5oe4yq.us-east-1.es.amazonaws.com'
     region = 'us-east-1'
-    
     service = 'es'
+    #session = botocore.session.get_session()
     credentials = boto3.Session().get_credentials()
-    print(credentials)
+
+    print(credentials.access_key,credentials.secret_key)
     awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
     
     search = OpenSearch(
@@ -82,17 +77,14 @@ def lambda_handler(event, context):
     
     
     
-    search.index(index="photos", doc_type="photo",id = "12", body=item)
+    search.index(index="photos", doc_type="photo",id = "2", body=item)
 
     #print('success')
     
-    #r = requests.post(OpenSearch, data=json.dumps(item).encode("utf-8"), headers=headers)
-    #res = requests.post(OpenSearch, auth=awsauth, headers=headers, data=json.dumps(item).encode("utf-8"))
-    #print(res)
-    #print(res.text)
+    
     print('upload success')
     
-    print(search.get(index="photos", doc_type="photo", id="12"))
+    print(search.get(index="photos", doc_type="photo", id="2"))
     
     # search by query
     #search_item = 'acat.jpeg'
