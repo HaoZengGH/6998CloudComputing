@@ -55,7 +55,7 @@ def lambda_handler(event, context):
     print(item)
 
     #region = 'us-east-1'
-    host = 'search-photosnew-lf5tuedyumkti2aas2mfctqdtu.us-east-1.es.amazonaws.com'
+    host = 'search-photoalbum-cn3cdbz3grdr76hntdhosnnqpy.us-east-1.es.amazonaws.com'
     #index = 'photos'
     #type = 'image'
     #url = OpenSearch + '/' + index + '/' + type
@@ -68,9 +68,9 @@ def lambda_handler(event, context):
     region = 'us-east-1'
     
     service = 'es'
-    #credentials = boto3.Session().get_credentials()
-    # print(credentials)
-    awsauth = AWS4Auth('AKIAQ3YKJCFDQ6OW3N6E', 'QG8zrlu17whNRR2V5fojQC9ihYJhtDe3gEt/m3u9', region, service, session_token=None)
+    credentials = boto3.Session().get_credentials()
+    print(credentials)
+    awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
     
     search = OpenSearch(
         hosts = [{'host': host, 'port': 443}],
