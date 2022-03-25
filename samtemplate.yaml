@@ -10,19 +10,19 @@ Resources:
       Runtime: python3.9
       CodeUri: ./search-photos-copy
       Description: 'Lambda function for searching photos'
-      Role: 'arn:aws:lambda:us-east-1:059614236999:function:search-photos'
+      Role: 'arn:aws:lambda:us-east-1:932961230827:function:search-photos'
       Environment:
         Variables:
           REGION: us-east-1
   IndexPhotosLambda:
     Type: 'AWS::Serverless::Function'
     Properties:
-      FunctionName: index-photos
-      Handler: index-photos.lambda_handler
+      FunctionName: index-photo
+      Handler: index-photo.lambda_handler
       Runtime: python3.9
       CodeUri: ./index-photos-copy
       Description: 'Lambda function for indexing photos'
-      Role: 'arn:aws:lambda:us-east-1:059614236999:function:index-photos'
+      Role: 'arn:aws:lambda:us-east-1:932961230827:function:index-photo'
       Environment:
         Variables:
           REGION: us-east-1
