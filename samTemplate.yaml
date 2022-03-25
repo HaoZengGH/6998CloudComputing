@@ -2,7 +2,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: Lambda for AI Photo Search
 Resources:
-  saerch-photos:
+  SearchPhotosLambda:
     Type: 'AWS::Serverless::Function'
     Properties:
       FunctionName: search-photos1
@@ -14,7 +14,7 @@ Resources:
       Environment:
         Variables:
           REGION: us-east-1
-  index-photo:
+  IndexPhotosLambda:
     Type: 'AWS::Serverless::Function'
     Properties:
       FunctionName: index-photo1
