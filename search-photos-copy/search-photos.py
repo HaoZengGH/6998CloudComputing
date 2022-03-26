@@ -36,6 +36,7 @@ def lambda_handler(event, context):
         print(photos)
         
         if photos:
+            #For API Gateway to handle a Lambda function's response, the function must return output according to the following JSON format:
             response = {
                 "statusCode": 200,
                 "headers": {"Access-Control-Allow-Origin": "*", "Content-Type": "application/json"},
@@ -46,8 +47,15 @@ def lambda_handler(event, context):
             response = {
                 "statusCode": 200,
                 "headers": {"Access-Control-Allow-Origin": "*", "Content-Type": "application/json"},
-                "body": [],
-                "isBase64Encoded": False}
+                "body": '[]',
+                "isBase64Encoded": False
+            }
+    else:
+        response = {
+            "statusCode": 200,
+            "headers": {"Access-Control-Allow-Origin": "*", "Content-Type": "application/json"},
+            "body": '[]',
+            "isBase64Encoded": False}
    
     print(response)
     return response
