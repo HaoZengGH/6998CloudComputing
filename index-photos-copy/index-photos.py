@@ -5,9 +5,6 @@ from requests_aws4auth import AWS4Auth
 from opensearchpy import OpenSearch, RequestsHttpConnection
 import requests
 
-import botocore.session
-
-
 def lambda_handler(event, context):
 
     s3 = boto3.client('s3')
@@ -58,13 +55,11 @@ def lambda_handler(event, context):
     print(item)
 
 
-    host = 'search-photoalbum-nofg-j5q2nx2vexvvkx75fyqt5oe4yq.us-east-1.es.amazonaws.com'
+    host = 'search-photoalbum-cn3cdbz3grdr76hntdhosnnqpy.us-east-1.es.amazonaws.com'
     region = 'us-east-1'
     service = 'es'
-    #session = botocore.session.get_session()
     credentials = boto3.Session().get_credentials()
 
-    print(credentials.access_key,credentials.secret_key)
     awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
     
     search = OpenSearch(
@@ -75,26 +70,9 @@ def lambda_handler(event, context):
         connection_class = RequestsHttpConnection
     )
     
-    
-    
-    search.index(index="photos", doc_type="photo",id = "2", body=item)
-
-    #print('success')
-    
+    search.index(index="photos", doc_type="photo", id = createdTimestamp, body=item)
     
     print('upload success')
     
     print(search.get(index="photos", doc_type="photo", id="2"))
     
-    # search by query
-    #search_item = 'acat.jpeg'
-    #search_url = OpenSearch + '/_search?q=' + search_item
-    #es_response = requests.get(search_url , auth=awsauth, headers=headers).json()
-   # es_src = es_response
-   # print(es_src)
-    
-    # delete by query
-    #delete_item = 'adog.jpeg'
-    #delete_by_query_url = OpenSearch + '/' + index + '/_delete_by_query?q=' + delete_item
-    #es_response = requests.post(delete_by_query_url, auth=awsauth, headers=headers)
-    #print(es_response)
