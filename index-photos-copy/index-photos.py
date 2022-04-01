@@ -4,7 +4,7 @@ import datetime
 from requests_aws4auth import AWS4Auth
 from opensearchpy import OpenSearch, RequestsHttpConnection
 import requests
-
+# zhushi
 def lambda_handler(event, context):
 
     s3 = boto3.client('s3')
